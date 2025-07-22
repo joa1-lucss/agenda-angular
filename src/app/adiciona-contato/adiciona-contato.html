@@ -1,14 +1,48 @@
-<!-- Obter as informações e adicionar 
- um novo contato com um evento de 
- clique chamando o método 'adicionar'-->
-<form>
-  
+<form (ngSubmit)="adicionar()" #form="ngForm">
+  <label>Nome:
+    <input type="text" [(ngModel)]="nome" name="nome" required>
+  </label><br>
+
+  <label>Telefone:
+    <input type="text" [(ngModel)]="telefone" name="telefone" required>
+  </label><br>
+
+  <label>Email:
+    <input type="email" [(ngModel)]="email" name="email" required>
+  </label><br>
+
+  <label>Aniversário:
+    <input type="date" [(ngModel)]="aniversario" name="aniversario" required>
+  </label><br>
+
+  <label>Tipo:
+    <select [(ngModel)]="tipo" name="tipo">
+      <option *ngFor="let t of tipos" [value]="t">{{ t }}</option>
+    </select>
+  </label><br>
+
+  <button type="submit">Adicionar Contato</button>
 </form>
 
-<!-- Exibir todos os contatos cadastrados.
- Use *ngFor para pegar os objetos Contato
- da lista de contatos e gerar uma linha
- da tabela para cada contato. -->
-<table>
+<hr>
 
+<table border="1" *ngIf="contatos.length > 0">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Telefone</th>
+      <th>Email</th>
+      <th>Aniversário</th>
+      <th>Tipo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let contato of contatos">
+      <td>{{ contato.getNome() }}</td>
+      <td>{{ contato.getTelefone() }}</td>
+      <td>{{ contato.getEmail() }}</td>
+      <td>{{ contato.getAniversario() | date:'dd/MM/yyyy' }}</td>
+      <td>{{ contato.getTipo() }}</td>
+    </tr>
+  </tbody>
 </table>
